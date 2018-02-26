@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('./config/ppConfig');
 var isLoggedIn = require('./middleware/isLoggedIn');
+var request = require('request');
 
 var app = express();
 
@@ -44,7 +45,8 @@ app.get('/profile', isLoggedIn, function(req, res) {
 });
 
 app.use('/auth', require('./controllers/auth'));
+app.use('/pets', require('./controllers/pets'));
 
-var server = app.listen(process.env.PORT || 3000);
+var server = app.listen(process.env.PORT || 3005);
 
 module.exports = server;
