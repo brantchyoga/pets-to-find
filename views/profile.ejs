@@ -1,5 +1,22 @@
 <main class="container">
-  <h2>Hi there, <%= currentUser.name %></h2>
   <a href="/auth/logout">Logout</a>
-  <form
+  <h2>Hi there, <%= currentUser.name %></h2>
+
+  <form action="/pets" method="POST">
+    <div class="row">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">location_on</i>
+        <input id="icon_prefix" name="zipCode" type="text" class="validate">
+        <label for="icon_prefix">Zip Code</label>
+      </div>
+      <div class="input-field col s6">
+        <select name="gender">
+          <option value="" disabled selected>Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+    <input class="btn blue" type="submit">
+  </form>
 </main>

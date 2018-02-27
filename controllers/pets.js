@@ -7,10 +7,10 @@ var router = express.Router();
 
 
 
-// router.get('/', function(req, res) {
-//   //go into db to find there save petslists
-//   res.render('favorites')
-// });
+router.get('/', function(req, res) {
+  //go into db to find there save petslists
+  res.render('favorites')
+});
 
 router.get('/:id', function(req, res) {
   //when clicked from favorites page it show pets info from db
@@ -23,12 +23,16 @@ router.post('/:id', function(req, res) {
     res.render('searchlist');
 });
 //route should be get (testing currently!!!!!)!!! remember brant
-router.get('/', function(req, res) {
+router.post('/', function(req, res) {
   //takes inputs from profile page to find a list of pets in area
-  var sex = "";
-  var zip = 98028;
-  request("http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&key="+process.env.API_KEY+"", function(response, error, body){
-    res.send(body);
+  console.log(req.body);
+  var animal = "";
+  var breed = "";
+  var age = "";
+  var sex = req.body.gender;
+  var zip = req.body.zipCode;
+  request("http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&age="+age+"&breed="+breed+"&animal="+animal+"&key="+process.env.API_KEY+"", function(response, error, body){
+    res.send(req.body);
   });
 });
 

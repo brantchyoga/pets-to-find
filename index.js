@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('./config/ppConfig');
 var isLoggedIn = require('./middleware/isLoggedIn');
+var path = require('path');
 var request = require('request');
 
 var app = express();
@@ -14,6 +15,7 @@ app.set('view engine', 'ejs');
 
 app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(ejsLayouts);
 
 //Needs env file where you store SESSION_SECRET, random secret word doesn't matter
