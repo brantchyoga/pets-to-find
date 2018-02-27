@@ -1,0 +1,22 @@
+<main class="container">
+  <a href="/auth/logout">Logout</a>
+
+  <div class="row">
+    <div class="carousel carouselheight">
+      <% pets.forEach(function(pet) { %>
+          <div class="col s6 m5 l4 carousel-item">
+            <div class="card blue darken-1 center-align hoverable">
+              <div class="card-title">
+                <h4 class="catch"><%= pet.name.$t %></h4>
+              </div>
+              <div class="card-image">
+                <img src="<%= pet.media.photos.photo[3].$t %>">
+              </div>
+            </div>
+            <a class="btn blue" href="/pets/<%= pet.id %>">Add to Favorites</a>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+
+</main>

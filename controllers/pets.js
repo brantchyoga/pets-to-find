@@ -25,14 +25,19 @@ router.post('/:id', function(req, res) {
 //route should be get (testing currently!!!!!)!!! remember brant
 router.post('/', function(req, res) {
   //takes inputs from profile page to find a list of pets in area
-  console.log(req.body);
-  var animal = "";
+  // console.log(req.body.gender);
+  // console.log(req.body.zipCode);
+  var animal = "horse";
   var breed = "";
   var age = "";
   var sex = req.body.gender;
   var zip = req.body.zipCode;
-  request("http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&age="+age+"&breed="+breed+"&animal="+animal+"&key="+process.env.API_KEY+"", function(response, error, body){
-    res.send(req.body);
+  var url = "http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&age="+age+"&breed="+breed+"&animal="+animal+"&key="+process.env.API_KEY+""
+  console.log(url);
+  request(url, function(response, error, body){
+    var pets = JSON.parse(body);
+    // console.log(pets.petfinder.pets.pet[0].name);
+    res.render('pets/searchlist', {pets: pets.petfinder.pets.pet});
   });
 });
 
