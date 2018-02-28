@@ -1,19 +1,24 @@
-<main class="container">
+<main class="container extendWidth">
   <a href="/auth/logout">Logout</a>
+  <a href="/profile">Search Again</a>
 
   <div class="row">
     <div class="carousel carouselheight">
       <% pets.forEach(function(pet) { %>
-          <div class="col s6 m5 l4 carousel-item">
-            <div class="card blue darken-1 center-align hoverable">
+          <div class="col s6 m5 l4">
+            <div class="card blue darken-1 center-align hoverable image-height-same carousel-item">
               <div class="card-title">
                 <h4 class="catch"><%= pet.name.$t %></h4>
               </div>
-              <div class="card-image">
+              <div class="card-image img-size">
                 <img src="<%= pet.media.photos.photo[3].$t %>">
               </div>
+              <div class="card-content">
+                <a class="btn blue" href="/pets/<%= pet.id.$t %>">Add to Favorites</a>
+              </div>
             </div>
-            <a class="btn blue" href="/pets/<%= pet.id %>">Add to Favorites</a>
+
+
           </div>
         <% }); %>
       </div>

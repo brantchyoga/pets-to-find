@@ -41,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   user.associate = function(models) {
     // associations can be defined here
+    models.user.hasMany(models.pet_interest);
   };
   //class methods that you make
   user.prototype.validPassword = function(passwordTyped){

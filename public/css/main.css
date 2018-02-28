@@ -5,3 +5,27 @@ body {
   height: 600px;
   background-color: pink;
 }
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+}
+.showrowheight {
+  height: 400px;
+}
+.extendWidth {
+  width: 95vw;
+}
+.image-height-same {
+  width: 300px;
+  height: 100px;
+  position: relative;
+  top: 5px;
+}
+/* .img-size {
+  width: 100%;
+  height: 100px;
+} */
