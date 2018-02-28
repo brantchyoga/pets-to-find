@@ -1,5 +1,6 @@
 <main class="container">
   <a href="/auth/logout">Logout</a>
+  <a href="/pets">Favorites</a>
   <h2>Hi there, <%= currentUser.name %></h2>
 
   <form action="/pets" method="POST">
@@ -9,11 +10,18 @@
         <input id="icon_prefix" name="zipCode" type="text" class="validate">
         <label for="icon_prefix">Zip Code</label>
       </div>
-      <div class="input-field col s6">
+      <div class="input-field col s3">
         <select name="gender">
           <option value="" disabled selected>Gender</option>
           <option value="M">Male</option>
           <option value="F">Female</option>
+        </select>
+      </div>
+      <div class="input-field col s3">
+        <select name="animal">
+          <option value="" disabled selected>Animal</option>
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
         </select>
       </div>
     </div>

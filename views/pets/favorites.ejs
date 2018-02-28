@@ -1,0 +1,22 @@
+<main class="container extendWidth">
+  <div class="row">
+    <% pets.forEach(function(pet){ %>
+      <div class="col s6 m4 l3 center-align">
+        <div class="card card-panel hoverable card-heightextend">
+          <div class="imagebox">
+            <img class="materialboxed circle responsive-img" src="<%= pet.image %>">
+          </div>
+          <div class="card-title">
+            <p class="cardtitle"><%= pet.petname  %></p>
+          </div>
+          <div class="card-action">
+            <a class="btn blue" href="/pets/<%= pet.petid %>">Info</a>
+            <a class="delete-link" href="/pets/<%= pet.petid %>">
+              <button class="btn red hoverable">Remove</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</main>

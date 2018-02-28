@@ -14,16 +14,10 @@ module.exports = {
       petname: {
         type: Sequelize.STRING
       },
-      breed: {
-        type: Sequelize.STRING
+      petid: {
+        type: Sequelize.INTEGER
       },
-      description: {
-        type: Sequelize.TEXT
-      },
-      images: {
-        type: Sequelize.ARRAY(Sequelize.TEXT)
-      },
-      contact: {
+      image: {
         type: Sequelize.STRING
       },
       createdAt: {

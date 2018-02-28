@@ -21,11 +21,43 @@ main {
 }
 .image-height-same {
   width: 300px;
-  height: 100px;
+  height: 500px;
   position: relative;
   top: 5px;
 }
-/* .img-size {
+.card-heightextend {
+  min-height: 400px;
+}
+.imagebox img {
   width: 100%;
-  height: 100px;
-} */
+  height: 200px;
+}
+.cardtitle {
+  margin:0;
+  padding: 0;
+  height: 8vw;
+  font-size: 1em;
+  overflow: auto;
+}
+.carouselsize {
+  width: 80%;
+  height: 500px;
+  margin: 0 auto;
+  border-bottom: 2px solid black;
+  overflow: scroll;
+}
+.sliderimgheight {
+  width: 100%;
+  height: 90%;
+}
+.sliderptag {
+  font-family: fantasy;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 0%;
+  padding-bottom: 0;
+}
+.titlepagetitle {
+  margin:1%;
+  letter-spacing:1px;
+}

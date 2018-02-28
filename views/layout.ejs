@@ -10,15 +10,23 @@
   </head>
   <body>
     <nav class="nav-extended">
-      <div class="nav-wrapper blue">
+      <div class="nav-wrapper green darken-3">
         <h2 class="brand-logo center">Pet Search!</h2>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="/">Home</a></li>
-          <li><a href="/instruction">How To Get Started!</a></li>
+          <% if (currentUser !== null){ %>
+            <li><a href="/profile">Profile</a></li>
+          <% } else { %>
+            <li><a href="/">Sign In</a></li>
+          <% } %>
+            <li><a href="/instruction">How To Get Started!</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
-          <li><a href="/">Home</a></li>
+          <% if (currentUser !== null){ %>
+            <li><a href="/profile">Profile</a></li>
+          <% } else { %>
+            <li><a href="/">Sign In</a></li>
+          <% } %>
           <li><a href="/instruction">How To Get Started!</a></li>
         </ul>
       </div>
@@ -28,6 +36,29 @@
       <% include partials/alerts %>
       <%- body %>
 
+    <footer class="page-footer green darken-3">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+              <h5 class="white-text">Recognize</h5>
+              <p class="grey-text text-lighten-4">Petfinder for us of there api</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+              <h5 class="white-text">Other</h5>
+              <ul>
+                <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/brant-porter/">linkedin</a></li>
+                <li><a class="grey-text text-lighten-3" href="https://github.com/brantchyoga">GitHub</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+          © 2018 Copyright BrantchYoga
+          <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+          </div>
+        </div>
+      </footer>
       <script src="//code.jquery.com/jquery.js"></script>
       <script src="/js/main.js" ></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>

@@ -18,12 +18,16 @@ function filterImg(array){
   return urlArray;
 }
 
-router.get('/', function(req, res) {
+router.get('/', isLoggedIn, function(req, res) {
   //go into db to find there save petslists
-  res.render('favorites')
+  db.pet_interest.findAll({
+    where: {userId : req.user.id}
+  }).then(function(pets){
+    res.render('pets/favorites', {pets: pets});
+  });
 });
 
-router.get('/:id', function(req, res) {
+router.get('/:id', isLoggedIn, function(req, res) {
   //when user clicks on pet in the search list. it querys that specific pet to show it
   //with the option of add it to the db
   console.log(req.params.id);
@@ -43,35 +47,65 @@ router.get('/:id', function(req, res) {
       var description = petInfo.pet.description.$t;
       var name = petInfo.pet.name.$t;
       var hasBeenArray = petInfo.pet.options.option;
+      var contact = petInfo.pet.contact.email.$t;
       console.log(imgArray[0].$t);
 
-      res.render('pets/show', {
-        images: imgUrlArray,
-        breeds: breeds,
-        mix: mix,
-        age: age,
-        sex: sex,
-        description: description,
-        name: name,
-        hasBeen: hasBeenArray
+      db.pet_interest.findOrCreate({
+        where: {
+          userId: req.user.id,
+          petname: name,
+          image: imgUrlArray[0].$t,
+          petid: req.params.id,
+        }
+      }).then(function(data){
+        console.log(data);
+        res.render('pets/show', {
+          images: imgUrlArray,
+          breeds: breeds,
+          mix: mix,
+          age: age,
+          sex: sex,
+          description: description,
+          name: name,
+          hasBeen: hasBeenArray
+        });
       });
     }
   });
 });
 //route should be get (testing currently!!!!!)!!! remember brant
-router.post('/', function(req, res) {
+router.post('/', isLoggedIn, function(req, res) {
   //takes inputs from profile page to find a list of pets in area
-  var animal = "dog";
-  var breed = "";
-  var age = "";
-  var sex = req.body.gender;
+  var offset = 0;
+  var animal = "";
+  var sex = "";
   var zip = req.body.zipCode;
-  var url = "http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&age="+age+"&breed="+breed+"&animal="+animal+"&key="+process.env.API_KEY+""
+  var url = "http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&animal="+animal+"&count=20&offset="+offset+"&key="+process.env.API_KEY+""
   console.log(url);
   request(url, function(response, error, body){
-    var pets = JSON.parse(body);
-    // console.log(pets.petfinder.pets.pet[0].name);
-    res.render('pets/searchlist', {pets: pets.petfinder.pets.pet});
+    var pets = JSON.parse(body).petfinder;
+    // if(offset !== pets.lastOffSet.$t && zip === pets.pets.pet[0].contact.zip.$t){
+    //   offset = pets.lastOffSet;
+    // }
+    // //fill in logic to filter out pets no longer available and spam
+    // if(pets.header.status.message.$t === 'shelter opt-out' || pets.pet.name.$t === 'VOLUNTEERS WANTED') {
+    // }
+    if(pets.header.status.message.$t === 'invalid arguments' || pets.header.status.message.$t === "Invalid geographical location"){
+      res.render('pets/unavailable');
+    } else {
+      res.render('pets/searchlist', {pets: pets.pets.pet});
+    }
+  });
+});
+
+router.delete('/:id', isLoggedIn, function(req, res){
+  db.pet_interest.destroy({
+    where:
+    {userId: req.user.id,
+    petid: req.params.id}
+  }).then(function(data){
+    console.log(data);
+    res.send();
   });
 });
 
