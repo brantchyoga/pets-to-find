@@ -1,6 +1,4 @@
-body {
-  background-color: lightgrey;
-}
+
 .addwidth {
   width: 600px;
   height: 150px;
@@ -9,6 +7,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-color: lightgrey;
 }
 main {
     flex: 1 0 auto;
@@ -30,6 +29,10 @@ main {
 .image-same-size {
   width: 250px;
   height: 250px;
+}
+.searchimgsize {
+  width: 200px;
+  height: 200px;
 }
 .card-heightextend {
   min-height: 400px;
@@ -83,4 +86,25 @@ main {
 }
 .addmarginshow {
   margin-top: 10px;
+}
+.show-hasbeen-style {
+  margin: 0;
+
+}
+.black-bordertop {
+  border-top: 2px solid black;
+}
+.noTopPadMarg {
+  padding-top:0;
+  margin-top: 0;
+}
+.black-borderbottom {
+  border-bottom: 2px solid black;
+}
+.blue-border-round {
+  border: 2px solid blue;
+  border-radius: 2px;
+}
+.marglittle {
+  margin: 1px;
 }
