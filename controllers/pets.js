@@ -19,6 +19,7 @@ function filterImg(array){
 }
 
 router.get('/', isLoggedIn, function(req, res) {
+
   //go into db to find there save petslists
   db.pet_interest.findAll({
     where: {userId : req.user.id}
@@ -30,9 +31,9 @@ router.get('/', isLoggedIn, function(req, res) {
 router.get('/:id', isLoggedIn, function(req, res) {
   //when user clicks on pet in the search list. it querys that specific pet to show it
   //with the option of add it to the db
-  console.log(req.params.id);
+
   var url = "http://api.petfinder.com/pet.get?format=json&id="+req.params.id+"&key="+process.env.API_KEY+"";
-  console.log(url);
+console.log("get by id");
   request(url, function(response, error, body){
     var petInfo = JSON.parse(body).petfinder;
     if(petInfo.header.status.message.$t === 'shelter opt-out' || petInfo.pet.name.$t === 'VOLUNTEERS WANTED') {
@@ -48,7 +49,6 @@ router.get('/:id', isLoggedIn, function(req, res) {
       var name = petInfo.pet.name.$t;
       var hasBeenArray = petInfo.pet.options.option;
       var contact = petInfo.pet.contact.email.$t;
-      console.log(imgArray[0].$t);
 
       db.pet_interest.findOrCreate({
         where: {
@@ -58,7 +58,7 @@ router.get('/:id', isLoggedIn, function(req, res) {
           petid: req.params.id,
         }
       }).then(function(data){
-        console.log(data);
+
         res.render('pets/show', {
           images: imgUrlArray,
           breeds: breeds,
@@ -99,12 +99,12 @@ router.post('/', isLoggedIn, function(req, res) {
 });
 
 router.delete('/:id', isLoggedIn, function(req, res){
+  console.log("Delete route");
   db.pet_interest.destroy({
     where:
     {userId: req.user.id,
     petid: req.params.id}
   }).then(function(data){
-    console.log(data);
     res.send();
   });
 });

@@ -6,6 +6,9 @@
     <title>PetSearch</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="/js/main.js" ></script>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
   </head>
   <body>
@@ -14,18 +17,24 @@
         <h2 class="brand-logo center">Pet Search!</h2>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <% if (currentUser !== null){ %>
-            <li><a href="/profile">Profile</a></li>
+          <% if (currentUser !== undefined){ %>
+            <li><a href="/profile">Search</a></li>
+            <li><a href="/pets">Favorites</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
           <% } else { %>
-            <li><a href="/">Sign In</a></li>
+            <li><a href="/auth/signup">Sign In</a></li>
+            <li><a href="/auth/login">Login In</a></li>
           <% } %>
             <li><a href="/instruction">How To Get Started!</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <% if (currentUser !== null){ %>
-            <li><a href="/profile">Profile</a></li>
+            <li><a href="/profile">Search</a></li>
+            <li><a href="/pets">Favorites</a></li>
+            <li><a href="/auth/logout">Logout</a></li>
           <% } else { %>
             <li><a href="/">Sign In</a></li>
+            <li><a href="/auth/login">Login In</a></li>
           <% } %>
           <li><a href="/instruction">How To Get Started!</a></li>
         </ul>
@@ -39,11 +48,11 @@
     <footer class="page-footer green darken-3">
         <div class="container">
           <div class="row">
-            <div class="col l6 s12">
+            <div class="col l6 s6">
               <h5 class="white-text">Recognize</h5>
               <p class="grey-text text-lighten-4">Petfinder for us of there api</p>
             </div>
-            <div class="col l4 offset-l2 s12">
+            <div class="col l4 offset-l2 s6">
               <h5 class="white-text">Other</h5>
               <ul>
                 <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/in/brant-porter/">linkedin</a></li>
@@ -59,8 +68,6 @@
           </div>
         </div>
       </footer>
-      <script src="//code.jquery.com/jquery.js"></script>
-      <script src="/js/main.js" ></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
   </body>
 </html>
