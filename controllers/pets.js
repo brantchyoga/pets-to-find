@@ -33,14 +33,23 @@ router.get('/:id', isLoggedIn, function(req, res) {
   //with the option of add it to the db
 
   var url = "http://api.petfinder.com/pet.get?format=json&id="+req.params.id+"&key="+process.env.API_KEY+"";
-console.log("get by id");
+  console.log("get by id");
+
   request(url, function(response, error, body){
     var petInfo = JSON.parse(body).petfinder;
+    //Condition where animal has been adopted or no longer available
     if(petInfo.header.status.message.$t === 'shelter opt-out' || petInfo.pet.name.$t === 'VOLUNTEERS WANTED') {
       res.render('pets/unavailable');
     } else {
-      var imgArray = petInfo.pet.media.photos.photo;
-      var imgUrlArray = filterImg(imgArray);
+      //Condition where user clicks on an animal with no picture
+      if(petInfo.pet.media.photos === undefined){
+        var imgToStore = "/img/noimage.jpg";
+      } else {
+        var imgArray = petInfo.pet.media.photos.photo;
+        var imgUrlArray = filterImg(imgArray);
+        var imgToStore = imgUrlArray[0].$t
+      }
+
       var breeds = petInfo.pet.breeds.breed;
       var mix = petInfo.pet.mix.$t;
       var age = petInfo.pet.age.$t;
@@ -54,12 +63,13 @@ console.log("get by id");
         where: {
           userId: req.user.id,
           petname: name,
-          image: imgUrlArray[0].$t,
+          image: imgToStore,
           petid: req.params.id,
         }
       }).then(function(data){
 
         res.render('pets/show', {
+          image:imgToStore,
           images: imgUrlArray,
           breeds: breeds,
           mix: mix,
@@ -77,8 +87,8 @@ console.log("get by id");
 router.post('/', isLoggedIn, function(req, res) {
   //takes inputs from profile page to find a list of pets in area
   var offset = 0;
-  var animal = "";
-  var sex = "";
+  if(req.body.animal === undefined){var animal = ""}else{var animal = req.body.animal};
+  if(req.body.gender === undefined){var sex = ""}else{var sex = req.body.gender};
   var zip = req.body.zipCode;
   var url = "http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&animal="+animal+"&count=20&offset="+offset+"&key="+process.env.API_KEY+""
   console.log(url);

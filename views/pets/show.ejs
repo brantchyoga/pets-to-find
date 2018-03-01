@@ -2,7 +2,11 @@
   <div class="row addmarginshow">
     <div class="col s6">
       <div class="row">
-        <% if(Array.isArray(images)){ %>
+        <% if (images === undefined){ %>
+          <div class="col s6">
+            <img src="/img/noimage.jpg">
+          </div>
+        <% } else if(Array.isArray(images)){ %>
           <% images.forEach(function(img) { %>
               <div class="col s6">
                 <a class="searchimgsize" href="<%= img.$t %>"><img class="searchimgsize" src="<%= img.$t %>"></a>
