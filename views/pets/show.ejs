@@ -6,8 +6,8 @@
           <div class="col s6">
             <img src="/img/noimage.jpg">
           </div>
-        <% } else if(Array.isArray(images)){ %>
-          <% images.forEach(function(img) { %>
+          <% } else if(Array.isArray(images)){ %>
+            <% images.forEach(function(img) { %>
               <div class="col s6">
                 <img class="searchimgsize blue-border-round materialboxed marglittle" src="<%= img.$t %>">
               </div>
@@ -19,39 +19,42 @@
         <%  } %>
       </div>
     </div>
-    <div class="col s6 card">
-      <div class="card-title">
-        <h2>Info</h2>
-      </div>
-      <div class="card-content">
-        <div class="row">
-          <div class="col s4 black-bordertop right">
-            <% if (Array.isArray(hasBeen)){ %>
-              <ol class="show-hasbeen-style">
-              <% hasBeen.forEach(function(string) { %>
-                <li><%= string.$t %></li>
-              <%  }); %>
-              </ol>
-            <% } else if (hasBeen) { %>
-              <p>1. <%= hasBeen.$t %></p>
-            <% } else { %>
-              <p>Unfortunately some info like whether the animal is housetrained or not is unavailable</p>
-          <%  } %>
-          </div>
-          <div class="col s8 black-bordertop">
-            <p>Age: <%= age %></p>
-            <p>Breed:
-            <% if (Array.isArray(breeds)){ %>
-              <ul class="noTopPadMarg">
-              <% breeds.forEach(function(breed) { %>
-                <li><%= breed.$t %></li>
-                <%  }); %>
+    <div class="col s6">
+      <div class="card extendCardWidth">
+        <div class="card-title">
+          <h2 class="margintitleLeftTop">Info</h2>
+        </div>
+        <div class="card-content">
+          <div class="row">
+            <div class="col s4 black-bordertop right">
+              <% if (Array.isArray(hasBeen)){ %>
+                <ol class="show-hasbeen-style margtoplittle">
+                  <% hasBeen.forEach(function(string) { %>
+                    <li><%= string.$t %></li>
+                  <%  }); %>
+                </ol>
+              <% } else if (hasBeen) { %>
+                <p>1. <%= hasBeen.$t %></p>
+              <% } else { %>
+                <p>Unfortunately some info like whether the animal is housetrained or not is unavailable</p>
+              <%  } %>
+            </div>
+            <div class="col s8 black-bordertop nopadleft">
+              <p class="margtoplittle">Age: <%= age %></p>
+              <p>Breed:
+              <% if (Array.isArray(breeds)){ %>
+                <ul class="noTopPadMarg">
+                  <% breeds.forEach(function(breed) { %>
+                    <li><%= breed.$t %></li>
+                  <%  }); %>
                 </ul>
               <% } else { %>
                 <%= breeds.$t %>
-            <%  } %>
-            </p>
-            <p>Mix?: <%= mix %></p>
+              <%  } %>
+              </p>
+              <p>Mix?: <%= mix %></p>
+              <p class="margtoplittle">Contact: <%= contact %></p>
+            </div>
           </div>
         </div>
       </div>
@@ -66,6 +69,5 @@
         <p><%= description %></p>
       </div>
     </div>
-
   </div>
 </main>

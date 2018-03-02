@@ -53,4 +53,17 @@ router.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+router.get('/edit', function(req, res){
+  res.render('auth/edit')
+});
+
+router.put('/:id', function(req, res){
+  db.user.update({
+    email: req.body.email,
+    name: req.body.name},
+    {where: {id: req.params.id}}).then(function(data){
+    res.send();
+  });
+});
+
 module.exports = router;

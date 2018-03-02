@@ -1,0 +1,18 @@
+<main class="container extendWidth">
+  <h2>Edit your profile <%= currentUser.name %></h2>
+  <div class="row">
+    <form class="edit-profile" action="/auth/<%= currentUser.id %>" method="PUT">
+      <div class="input-field col s6">
+        <i class="material-icons prefix">input</i>
+        <input id="icon_prefix" name="name" type="text" value="<%= currentUser.name %>">
+        <label for="icon_prefix">Edit Name</label>
+      </div>
+      <div class="input-field col s6">
+        <i class="material-icons prefix">email</i>
+        <input id="icon_prefix" name="email" type="email" value="<%= currentUser.email %>">
+        <label for="icon_prefix">Edit Email</label>
+      </div>
+      <button type="sumbit" class="btn teal darken-2">Submit</button>
+    </form>
+  </div>
+</main>

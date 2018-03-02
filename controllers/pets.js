@@ -77,7 +77,8 @@ router.get('/:id', isLoggedIn, function(req, res) {
           sex: sex,
           description: description,
           name: name,
-          hasBeen: hasBeenArray
+          hasBeen: hasBeenArray,
+          contact: contact
         });
       });
     }

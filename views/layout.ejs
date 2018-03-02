@@ -21,26 +21,27 @@
             <li><a href="/profile">Search</a></li>
             <li><a href="/pets">Favorites</a></li>
             <li><a href="/auth/logout">Logout</a></li>
+            <li><a href="/auth/edit">Edit Profile</a></li>
           <% } else { %>
-            <li><a href="/auth/signup">Sign In</a></li>
-            <li><a href="/auth/login">Login In</a></li>
+            <li><a href="/auth/signup">Sign Up</a></li>
+            <li><a href="/auth/login">Log In</a></li>
+            <li><a href="/">Home</a></li>
           <% } %>
-            <li><a href="/instruction">How To Get Started!</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
-          <% if (currentUser !== null){ %>
+          <% if (currentUser !== undefined){ %>
             <li><a href="/profile">Search</a></li>
             <li><a href="/pets">Favorites</a></li>
             <li><a href="/auth/logout">Logout</a></li>
+            <li><a href="/auth/edit">Edit Profile</a></li>
           <% } else { %>
-            <li><a href="/">Sign In</a></li>
-            <li><a href="/auth/login">Login In</a></li>
+            <li><a href="/auth/signup">Sign Up</a></li>
+            <li><a href="/auth/login">Log In</a></li>
+            <li><a href="/">Home</a></li>
           <% } %>
-          <li><a href="/instruction">How To Get Started!</a></li>
         </ul>
       </div>
     </nav>
-
 
       <% include partials/alerts %>
       <%- body %>
