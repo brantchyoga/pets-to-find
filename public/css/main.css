@@ -35,7 +35,7 @@ main {
   overflow: hidden;
 }
 .pups{
-  height: 100% !important
+  height: 100% !important;
 }
 .searchimgsize {
   width: 170px;
@@ -127,4 +127,17 @@ main {
 }
 .nopadleft {
   padding: 0;
+}
+.inlineblock {
+  display: inline-block;
+}
+#map {
+  width: 100%;
+  height: 300px;
+}
+@media screen and (max-width:601px) {
+  #map {
+    width: 100% !important;
+    height: 300px !important;
+  }
 }

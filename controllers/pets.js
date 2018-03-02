@@ -34,6 +34,7 @@ router.get('/:id', isLoggedIn, function(req, res) {
 
   var url = "http://api.petfinder.com/pet.get?format=json&id="+req.params.id+"&key="+process.env.API_KEY+"";
   console.log("get by id");
+  console.log(url);
 
   request(url, function(response, error, body){
     var petInfo = JSON.parse(body).petfinder;
@@ -58,6 +59,11 @@ router.get('/:id', isLoggedIn, function(req, res) {
       var name = petInfo.pet.name.$t;
       var hasBeenArray = petInfo.pet.options.option;
       var contact = petInfo.pet.contact.email.$t;
+      var shelterId = petInfo.pet.shelterId.$t;
+
+      console.log(shelterId);
+      var shelterUrl = "http://api.petfinder.com/shelter.get?format=json&id="+shelterId+"&key="+process.env.API_KEY+"";
+      console.log(shelterUrl);
 
       db.pet_interest.findOrCreate({
         where: {
@@ -67,18 +73,28 @@ router.get('/:id', isLoggedIn, function(req, res) {
           petid: req.params.id,
         }
       }).then(function(data){
+        request(shelterUrl, function(response, error, body){
+          var shelterInfo = JSON.parse(body).petfinder.shelter;
+          // var address = shelterInfo.address1.$t;
+          var lat = shelterInfo.latitude.$t;
+          var long = shelterInfo.longitude.$t;
+          var shelterName = shelterInfo.name.$t;
 
-        res.render('pets/show', {
-          image:imgToStore,
-          images: imgUrlArray,
-          breeds: breeds,
-          mix: mix,
-          age: age,
-          sex: sex,
-          description: description,
-          name: name,
-          hasBeen: hasBeenArray,
-          contact: contact
+          res.render('pets/show', {
+            image: imgToStore,
+            images: imgUrlArray,
+            breeds: breeds,
+            mix: mix,
+            age: age,
+            sex: sex,
+            description: description,
+            name: name,
+            hasBeen: hasBeenArray,
+            contact: contact,
+            lat: lat,
+            long: long,
+            shelterName: shelterName
+          });
         });
       });
     }
