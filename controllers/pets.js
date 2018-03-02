@@ -17,14 +17,31 @@ function filterImg(array){
   });
   return urlArray;
 }
+function regex(string){
+  var expr = /â/g;
+  string = string.replace(expr, '-');
+  return string;
+}
 
 router.get('/', isLoggedIn, function(req, res) {
-
   //go into db to find there save petslists
   db.pet_interest.findAll({
     where: {userId : req.user.id}
   }).then(function(pets){
     res.render('pets/favorites', {pets: pets});
+  });
+});
+
+router.post('/', isLoggedIn, function(req,res) {
+  db.pet_interest.findOrCreate({
+    where: {
+      userId: req.user.id,
+      petname: req.body.name,
+      image: req.body.imgToStore,
+      petid: req.body.petid
+    }
+  }).then(function(data){
+
   });
 });
 
@@ -50,12 +67,12 @@ router.get('/:id', isLoggedIn, function(req, res) {
         var imgUrlArray = filterImg(imgArray);
         var imgToStore = imgUrlArray[0].$t
       }
-
+      var petId = petInfo.pet.id.$t;
       var breeds = petInfo.pet.breeds.breed;
       var mix = petInfo.pet.mix.$t;
       var age = petInfo.pet.age.$t;
       var sex = petInfo.pet.sex.$t;
-      var description = petInfo.pet.description.$t;
+      var description = regex(petInfo.pet.description.$t);
       var name = petInfo.pet.name.$t;
       var hasBeenArray = petInfo.pet.options.option;
       var contact = petInfo.pet.contact.email.$t;
@@ -65,14 +82,6 @@ router.get('/:id', isLoggedIn, function(req, res) {
       var shelterUrl = "http://api.petfinder.com/shelter.get?format=json&id="+shelterId+"&key="+process.env.API_KEY+"";
       console.log(shelterUrl);
 
-      db.pet_interest.findOrCreate({
-        where: {
-          userId: req.user.id,
-          petname: name,
-          image: imgToStore,
-          petid: req.params.id,
-        }
-      }).then(function(data){
         request(shelterUrl, function(response, error, body){
           var shelterInfo = JSON.parse(body).petfinder.shelter;
           // var address = shelterInfo.address1.$t;
@@ -91,12 +100,12 @@ router.get('/:id', isLoggedIn, function(req, res) {
             name: name,
             hasBeen: hasBeenArray,
             contact: contact,
+            petId: petId,
             lat: lat,
             long: long,
             shelterName: shelterName
           });
         });
-      });
     }
   });
 });

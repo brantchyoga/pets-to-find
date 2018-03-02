@@ -8,8 +8,8 @@
           </div>
           <% } else if(Array.isArray(images)){ %>
             <% images.forEach(function(img) { %>
-              <div class="col s3">
-                <img class="searchimgsize blue-border-round materialboxed marglittle" src="<%= img.$t %>">
+              <div class="col s6 m4 l3">
+                <img class="searchimgsize black-border-round materialboxed marglittle" src="<%= img.$t %>">
               </div>
             <% }); %>
           <% } else { %>
@@ -57,6 +57,16 @@
               </p>
               <p>Mix?: <%= mix %></p>
               <p class="margtoplittle">Email: <%= contact %></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <form method="POST" action="pets/">
+                <input type="hidden" name="name" value="<%= name %>">
+                <input type="hidden" name="imgToStore" value="<%= image %>">
+                <input type="hidden" name="petid" value="<%= petId %>">
+                <input type="submit" class="btn black" value="SAVE PET">
+              </form>
             </div>
           </div>
         </div>

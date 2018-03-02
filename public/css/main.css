@@ -112,6 +112,10 @@ main {
   border: 2px solid blue;
   border-radius: 2px;
 }
+.black-border-round {
+  border: 2px solid black;
+  border-radius: 2px;
+}
 .marglittle {
   margin: 1px;
 }
