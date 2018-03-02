@@ -40,7 +40,7 @@ router.get('/:id', isLoggedIn, function(req, res) {
     var petInfo = JSON.parse(body).petfinder;
     //Condition where animal has been adopted or no longer available
     if(petInfo.header.status.message.$t === 'shelter opt-out' || petInfo.pet.name.$t === 'VOLUNTEERS WANTED') {
-      res.render('pets/unavailable');
+      res.render('pets/petunavailable');
     } else {
       //Condition where user clicks on an animal with no picture
       if(petInfo.pet.media.photos === undefined){
@@ -103,20 +103,15 @@ router.get('/:id', isLoggedIn, function(req, res) {
 //route should be get (testing currently!!!!!)!!! remember brant
 router.post('/', isLoggedIn, function(req, res) {
   //takes inputs from profile page to find a list of pets in area
-  var offset = 0;
   if(req.body.animal === undefined){var animal = ""}else{var animal = req.body.animal};
   if(req.body.gender === undefined){var sex = ""}else{var sex = req.body.gender};
   var zip = req.body.zipCode;
-  var url = "http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&animal="+animal+"&count=20&offset="+offset+"&key="+process.env.API_KEY+""
+  var url = "http://api.petfinder.com/pet.find?format=json&location="+zip+"&sex="+sex+"&animal="+animal+"&count=20&&key="+process.env.API_KEY+""
   console.log(url);
+
   request(url, function(response, error, body){
     var pets = JSON.parse(body).petfinder;
-    // if(offset !== pets.lastOffSet.$t && zip === pets.pets.pet[0].contact.zip.$t){
-    //   offset = pets.lastOffSet;
-    // }
-    // //fill in logic to filter out pets no longer available and spam
-    // if(pets.header.status.message.$t === 'shelter opt-out' || pets.pet.name.$t === 'VOLUNTEERS WANTED') {
-    // }
+
     if(pets.header.status.message.$t === 'invalid arguments' || pets.header.status.message.$t === "Invalid geographical location"){
       res.render('pets/unavailable');
     } else {

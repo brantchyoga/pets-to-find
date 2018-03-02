@@ -1,4 +1,6 @@
-
+html {
+  font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
 .addwidth {
   width: 600px;
   height: 150px;
@@ -29,7 +31,6 @@ main {
 .image-same-size {
   width: 100%;
   height: 200px;
-
 }
 .overflowhid {
   overflow: hidden;
@@ -141,3 +142,4 @@ main {
     height: 300px !important;
   }
 }
+.

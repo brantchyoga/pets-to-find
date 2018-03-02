@@ -8,7 +8,7 @@
           </div>
           <% } else if(Array.isArray(images)){ %>
             <% images.forEach(function(img) { %>
-              <div class="col s2">
+              <div class="col s3">
                 <img class="searchimgsize blue-border-round materialboxed marglittle" src="<%= img.$t %>">
               </div>
             <% }); %>
@@ -56,7 +56,7 @@
               <%  } %>
               </p>
               <p>Mix?: <%= mix %></p>
-              <p class="margtoplittle">Contact: <%= contact %></p>
+              <p class="margtoplittle">Email: <%= contact %></p>
             </div>
           </div>
         </div>
