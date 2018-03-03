@@ -32,7 +32,7 @@ router.get('/', isLoggedIn, function(req, res) {
   });
 });
 
-router.post('/', isLoggedIn, function(req,res) {
+router.post('/favorites', isLoggedIn, function(req,res) {
   db.pet_interest.findOrCreate({
     where: {
       userId: req.user.id,
@@ -40,8 +40,12 @@ router.post('/', isLoggedIn, function(req,res) {
       image: req.body.imgToStore,
       petid: req.body.petid
     }
-  }).then(function(data){
-
+  }).then(function(pet){
+    db.pet_interest.findAll({
+      where: {userId : req.user.id}
+    }).then(function(pets){
+      res.render('pets/favorites', {pets: pets});
+    });
   });
 });
 
