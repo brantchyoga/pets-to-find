@@ -1,8 +1,8 @@
 <main class="container">
   <h2>Hi there, <%= currentUser.name %>!</h2>
 
-  <form action="/pets" method="POST">
-    <div class="row">
+  <form class="" action="/pets" method="POST">
+    <div class="row black-border-round">
       <div class="input-field col s6">
         <i class="material-icons prefix">location_on</i>
         <input id="icon_prefix" name="zipCode" type="text" class="validate">
@@ -10,7 +10,7 @@
       </div>
       <div class="input-field col s3">
         <select name="gender">
-          <option value="" disabled selected>Gender</option>
+          <option value="" disabled selected>Sex</option>
           <option value="M">Male</option>
           <option value="F">Female</option>
         </select>
@@ -20,9 +20,32 @@
           <option value="" disabled selected>Animal</option>
           <option value="dog">Dog</option>
           <option value="cat">Cat</option>
+          <option value="barnyard">Barnyard Animal</option>
+          <option value="horse">Horse</option>
         </select>
       </div>
+      <input class="btn blue" type="submit">
     </div>
-    <input class="btn blue" type="submit">
   </form>
+  <div class="black-border-round" style="background-color: white;">
+    <h3 class="center black-borderbottom">Information</h3>
+    <div class="row">
+      <div class="col m6">
+        <div class="card cardheight-same">
+          <p class="center">Enter search fields to find pets you might like to adopt. The only search field that needs to be filled out is your zip code. Up to 20 animals will show up in your search.</p>
+        </div>
+      </div>
+      <div class="col m6">
+        <div class="card cardheight-same">
+          <div class="card-title">
+            <h5 class="center">Disclaimers</h5>
+          </div>
+          <ol>
+            <li>Shelters not in your zip code may be sponsoring pets in your area hence the Google map location may be out of state</li>
+            <li>Only U.S. zip codes are viable</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>

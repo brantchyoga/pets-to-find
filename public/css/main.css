@@ -146,4 +146,6 @@ main {
     height: 300px !important;
   }
 }
-.
+.cardheight-same {
+  height: 20vh;
+}
