@@ -1,8 +1,8 @@
 <main class="container">
   <h2>Hi there, <%= currentUser.name %>!</h2>
 
-  <form class="" action="/pets" method="POST">
-    <div class="row black-border-round">
+  <form class="background-white" action="/pets" method="POST">
+    <div class="row black-border-round background-white">
       <div class="input-field col s6">
         <i class="material-icons prefix">location_on</i>
         <input id="icon_prefix" name="zipCode" type="text" class="validate">
@@ -24,25 +24,28 @@
           <option value="horse">Horse</option>
         </select>
       </div>
-      <input class="btn blue" type="submit">
+      <div class="centerbtn">
+        <input class="btn blue" type="submit">
+      </div>
     </div>
   </form>
-  <div class="black-border-round" style="background-color: white;">
-    <h3 class="center black-borderbottom">Information</h3>
+  <div class="black-border-round background-white">
+    <h4 class="center black-borderbottom">Information</h4>
     <div class="row">
       <div class="col m6">
-        <div class="card cardheight-same">
-          <p class="center">Enter search fields to find pets you might like to adopt. The only search field that needs to be filled out is your zip code. Up to 20 animals will show up in your search.</p>
+        <div class="card cardheight-same background-white valign-wrapper">
+          <p class="center padlittle">Enter search fields to find pets you might like to adopt. The only search field that needs to be filled out is your zip code. Up to 20 animals will show up in your search.</p>
         </div>
       </div>
       <div class="col m6">
-        <div class="card cardheight-same">
+        <div class="card cardheight-same background-white">
           <div class="card-title">
             <h5 class="center">Disclaimers</h5>
           </div>
           <ol>
             <li>Shelters not in your zip code may be sponsoring pets in your area hence the Google map location may be out of state</li>
             <li>Only U.S. zip codes are viable</li>
+            <li>Pets that are already adopted may show up in results</li>
           </ol>
         </div>
       </div>
