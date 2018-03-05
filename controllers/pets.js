@@ -5,6 +5,8 @@ var isLoggedIn = require('../middleware/isLoggedIn');
 var request = require('request');
 var router = express.Router();
 
+//Filters out same pet images to return only the ones at a specific size
+//this is an example of middleware brant created
 function filterImg(array){
   var count = 1;
   var urlArray = array.filter(function(image){
@@ -17,14 +19,16 @@ function filterImg(array){
   });
   return urlArray;
 }
+//Found that in some cases a dash is represented by the character â, function
+//takes â and subsequently replaces it with a dash
 function regex(string){
   var expr = /â/g;
   string = string.replace(expr, '-');
   return string;
 }
 
+//go into db to find there save petslists
 router.get('/', isLoggedIn, function(req, res) {
-  //go into db to find there save petslists
   db.pet_interest.findAll({
     where: {userId : req.user.id}
   }).then(function(pets){
@@ -32,6 +36,7 @@ router.get('/', isLoggedIn, function(req, res) {
   });
 });
 
+//Creates saved pet in db and renders favorites
 router.post('/favorites', isLoggedIn, function(req,res) {
   db.pet_interest.findOrCreate({
     where: {
@@ -49,18 +54,16 @@ router.post('/favorites', isLoggedIn, function(req,res) {
   });
 });
 
+//when user clicks on pet in the search list. it querys that specific pet to show it
+//with the option of add it to the db
 router.get('/:id', isLoggedIn, function(req, res) {
-  //when user clicks on pet in the search list. it querys that specific pet to show it
-  //with the option of add it to the db
-
   var url = "http://api.petfinder.com/pet.get?format=json&id="+req.params.id+"&key="+process.env.API_KEY+"";
-  console.log("get by id");
   console.log(url);
 
   request(url, function(response, error, body){
     var petInfo = JSON.parse(body).petfinder;
     //Condition where animal has been adopted or no longer available
-    if(petInfo.header.status.message.$t === 'shelter opt-out' || petInfo.pet.name.$t === 'VOLUNTEERS WANTED') {
+    if(petInfo.header.status.message.$t === 'shelter opt-out') {
       res.render('pets/petunavailable');
     } else {
       //Condition where user clicks on an animal with no picture
@@ -82,10 +85,9 @@ router.get('/:id', isLoggedIn, function(req, res) {
       var contact = petInfo.pet.contact.email.$t;
       var shelterId = petInfo.pet.shelterId.$t;
 
-      console.log(shelterId);
       var shelterUrl = "http://api.petfinder.com/shelter.get?format=json&id="+shelterId+"&key="+process.env.API_KEY+"";
       console.log(shelterUrl);
-
+      //request data for google maps
         request(shelterUrl, function(response, error, body){
           var shelterInfo = JSON.parse(body).petfinder.shelter;
           // var address = shelterInfo.address1.$t;
@@ -113,9 +115,9 @@ router.get('/:id', isLoggedIn, function(req, res) {
     }
   });
 });
-//route should be get (testing currently!!!!!)!!! remember brant
+
 router.post('/', isLoggedIn, function(req, res) {
-  //takes inputs from profile page to find a list of pets in area
+  //if inputs are left empty sets undefined to empty stings so api call works
   if(req.body.animal === undefined){var animal = ""}else{var animal = req.body.animal};
   if(req.body.gender === undefined){var sex = ""}else{var sex = req.body.gender};
   var zip = req.body.zipCode;
@@ -124,7 +126,7 @@ router.post('/', isLoggedIn, function(req, res) {
 
   request(url, function(response, error, body){
     var pets = JSON.parse(body).petfinder;
-
+    //Filters out api calls I that don't give the information needed
     if(pets.header.status.message.$t === 'invalid arguments' || pets.header.status.message.$t === "Invalid geographical location"){
       res.render('pets/unavailable');
     } else {
@@ -133,6 +135,7 @@ router.post('/', isLoggedIn, function(req, res) {
   });
 });
 
+//Deletes saved pet from favorites
 router.delete('/:id', isLoggedIn, function(req, res){
   console.log("Delete route");
   db.pet_interest.destroy({

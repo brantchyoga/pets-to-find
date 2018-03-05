@@ -1,13 +1,14 @@
-function autoplay() {
-  $('.carousel.carousel-slider').carousel('next');
-  setTimeout(autoplay, 4000);
-}
 
 $(document).ready(function() {
+  //Home page caraousel switches slides
+  function autoplay() {
+    $('.carousel.carousel-slider').carousel('next');
+    setTimeout(autoplay, 4000);
+  }
+  //material inputs
   $('select').material_select();
-  $('.carousel1').carousel();
+  //home page carousel
   $('.carousel.carousel-slider').carousel({fullWidth: true});
-  $('.carousel').carousel({fullWidth: true});
   $('.materialboxed').materialbox();
   $(".button-collapse").sideNav();
 

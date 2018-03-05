@@ -60,6 +60,7 @@ Days 5-6
 - Better homepage images, current images are basically place holders.
 - Using the offset data with the user so as to show more than 20 pets per search parameters
 - Improving functionality to deal with errors having to do with bad user input on the api side and improper search inputs on my end.
+- Add functionality to deal with shelter ads looking for volunteers.
 
 ## Licensing
 Copyright of Brantchyoga. All rights reserved. This site is free for anyone to sign up and use.
