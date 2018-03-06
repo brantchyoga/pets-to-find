@@ -23,7 +23,9 @@ function filterImg(array){
 //takes â and subsequently replaces it with a dash
 function regex(string){
   var expr = /â/g;
-  string = string.replace(expr, '-');
+  if(string){
+    return string.replace(expr, '-');
+  }
   return string;
 }
 
